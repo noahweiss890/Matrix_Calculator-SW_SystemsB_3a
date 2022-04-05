@@ -45,8 +45,8 @@ namespace zich {
 
     istream& operator>>(istream& is, Matrix &mat) {
         mat.mat.clear();
-        int rows;
-        int columns;
+        int rows = 0;
+        int columns = 0;
         string str;
         getline(is, str);
         stringstream ss(str);
@@ -263,10 +263,7 @@ namespace zich {
         for(unsigned long i = 0; i < mat.mat.size(); i++) {
             sum2 += mat.mat[i];
         }
-        if(sum1 <= sum2) {
-            return true;
-        }
-        return false;
+        return sum1 <= sum2;
     }
 
     bool Matrix::operator>=(const Matrix &mat) const {
@@ -278,10 +275,7 @@ namespace zich {
         for(unsigned long i = 0; i < mat.mat.size(); i++) {
             sum2 += mat.mat[i];
         }
-        if(sum1 >= sum2) {
-            return true;
-        }
-        return false;
+        return sum1 >= sum2;
     }
 
     bool Matrix::operator==(const Matrix &mat) const {
