@@ -10,10 +10,10 @@ namespace zich {
         int columns;
         
         public:
-            Matrix(vector<double> vec, int row, int col);
-            vector<double> getMat();
-            int getRows();
-            int getColumns();
+            Matrix(const vector<double> &vec, int row, int col);
+            vector<double> getMat() const;
+            int getRows() const;
+            int getColumns() const;
             friend ostream& operator<<(ostream& os, const Matrix &mat);
             friend istream& operator>>(istream& is, Matrix &mat);
             Matrix operator-() const;
@@ -21,7 +21,7 @@ namespace zich {
             Matrix operator++();
             Matrix operator++(int dummy_flag_for_postfix_increment);
             Matrix operator--();
-            Matrix operator--(int dummy_flag_for_postfix_increment);
+            Matrix operator--(int dummy_flag_for_postfix_decrement);
             void operator*=(int n);
             void operator+=(int n);
             void operator-=(int n);

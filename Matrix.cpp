@@ -7,7 +7,7 @@ using namespace zich;
 
 namespace zich {
 
-    Matrix::Matrix(vector<double> vec, int rows, int cols) {
+    Matrix::Matrix(const vector<double> &vec, int rows, int cols) {
         if(vec.size() != rows * cols || rows < 0 || cols < 0) {
             throw invalid_argument("not a legal matrix!");
         }
@@ -16,15 +16,15 @@ namespace zich {
         this->columns = cols;
     }
 
-    vector<double> Matrix::getMat(){
+    vector<double> Matrix::getMat() const {
         return this->mat;
     }
 
-    int Matrix::getRows() {
+    int Matrix::getRows() const {
         return this->rows;
     }
 
-    int Matrix::getColumns() {
+    int Matrix::getColumns() const {
         return this->columns;
     }
 
@@ -45,8 +45,8 @@ namespace zich {
 
     istream& operator>>(istream& is, Matrix &mat) {
         mat.mat.clear();
-        int rows = 0;
-        int columns = 0;
+        int rows;
+        int columns;
         string str;
         getline(is, str);
         stringstream ss(str);
@@ -70,8 +70,10 @@ namespace zich {
             }
             columns++;
         }
-        mat.rows = rows;
-        mat.columns = columns/rows;
+        if(rows > 0 && columns > 0) {
+            mat.rows = rows;
+            mat.columns = columns/rows;
+        }
         return is;
     }
     
@@ -215,7 +217,7 @@ namespace zich {
             throw invalid_argument("illegal matrix multiplication!");
         }
         vector<double> vec;
-        double sum;
+        double sum = 0;
         for(unsigned long i = 0; i < this->rows; i++) {
             for(unsigned long j = 0; j < mat.columns; j++) {
                 sum = 0;
@@ -237,10 +239,7 @@ namespace zich {
         for(unsigned long i = 0; i < mat.mat.size(); i++) {
             sum2 += mat.mat[i];
         }
-        if(sum1 < sum2) {
-            return true;
-        }
-        return false;
+        return sum1 < sum2;
     }
 
     bool Matrix::operator>(const Matrix &mat) const {
@@ -252,10 +251,7 @@ namespace zich {
         for(unsigned long i = 0; i < mat.mat.size(); i++) {
             sum2 += mat.mat[i];
         }
-        if(sum1 > sum2) {
-            return true;
-        }
-        return false;
+        return sum1 > sum2;
     }
 
     bool Matrix::operator<=(const Matrix &mat) const {
