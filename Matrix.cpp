@@ -106,7 +106,7 @@ namespace zich {
     }
 
     Matrix Matrix::operator++(int dummy_flag_for_postfix_increment) {
-        Matrix copy = *this;
+        Matrix copy = Matrix(this->mat, this->rows, this->columns);
         for(unsigned long i = 0; i < this->mat.size(); i++) {
             this->mat[i]++;
         }
@@ -121,7 +121,7 @@ namespace zich {
     }
 
     Matrix Matrix::operator--(int dummy_flag_for_postfix_decrement) {
-        Matrix copy = *this;
+        Matrix copy = Matrix(this->mat, this->rows, this->columns);
         for(unsigned long i = 0; i < this->mat.size(); i++) {
             this->mat[i]--;
         }
